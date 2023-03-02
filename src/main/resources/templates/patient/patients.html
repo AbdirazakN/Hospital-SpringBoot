@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient</title>
+    <style>
+        body {
+            background: url("");
+            background-size: 1550px auto;
+            image-orientation: 360deg;
+            image-rendering: inherit;
+            background-blend-mode: darken;
+            background-origin: initial;
+            margin: 0;
+            align-content: center;
+            text-align: center;
+        }
+        .divClass{
+            padding: 10px 300px;
+        }
+
+        .tableClass {
+            margin: 20px 80px;
+            border: 1px;
+            border-collapse: collapse;
+            line-height: 1.1;
+            font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+            background: radial-gradient(farthest-corner at 50% 50%, white, #DCECF8);
+            color: #0C213B;
+            border-radius: 10px;
+            font-size: 20px;
+            width: 700px;
+        }
+
+        .h1Patient {
+            font-family: annabelle, SansSerif;
+            font-weight: bold;
+            padding: 10px;
+            color: #F3CD26;
+            text-shadow: 1px 1px 0 rgba(0, 0, 0, .3);
+            font-size: 50px;
+            font-style: revert;
+            margin: 40px;
+            align-content: center;
+            text-align: center;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+          crossorigin="anonymous">
+</head>
+<body>
+<h1 class="h1Patient">Patient Main Page</h1>
+<div class="divClass">
+    <table class="tableClass" border="1" cellpadding="5">
+        <tr class="trClass">
+            <th>#ID</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Number</th>
+            <th>Gender</th>
+            <th>Email</th>
+            <th>Hospital</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        <div th:each="patient:${patients}">
+            <tr class="trdClass">
+                <td class="card-title" th:text="${patient.getId()}">ID</td>
+                <td class="card-title" th:text="${patient.getFirstName()}">Name</td>
+                <td class="card-title" th:text="${patient.getLastName()}">Surname</td>
+                <td class="card-title" th:text="${patient.getPhoneNumber()}">Number</td>
+                <td class="card-title" th:text="${patient.getGender()}">Gender</td>
+                <td class="card-title" th:text="${patient.getEmail()}">Email</td>
+                <td class="card-title" th:text="${patient.getHospital().getName()}">Hospital</td>
+                <td><a th:href="@{/patients/edit/{patientId}(patientId=${patient.getId()})}">
+                    <button class="btn btn-outline-primary" >Update</button></a></td>
+                <td><a><form th:method="GET" th:action="@{/patients/{id}/{hosId}(id=${patient.getId()},hosId=${hospitalId})}">
+                        <button class="btn btn-outline-primary">DELETE</button></form></a></td>
+            </tr>
+        </div>
+    </table>
+</div>
+<div style="text-align: center">
+    <a th:href="@{/patients/{id}/newPatient(id=${hospitalId})}">
+        <button class="btn btn-outline-primary" style="font-size: 30px;  margin: auto"> Add Patient</button>
+    </a>
+</div>>
+<div style="text-align: center">
+    <a th:href="@{/hospitals}">
+        <button class="btn btn-outline-primary" style="font-size: 20px;  margin: auto"> Back To Hospital</button>
+    </a>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous">
+</script>
+</html>

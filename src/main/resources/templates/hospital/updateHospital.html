@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+          crossorigin="anonymous">
+
+        <style>
+            .container{
+                display: block;
+                margin-top: 100px;
+                margin-left: 570px;
+                font-size:30px;
+
+            }
+            .shadow__btn {
+                padding: 10px 20px;
+                border: none;
+                font-size: 17px;
+                color: #fff;
+                border-radius: 7px;
+                letter-spacing: 4px;
+                font-weight: 700;
+                text-transform: uppercase;
+                transition: 0.5s;
+                transition-property: box-shadow;
+                backdrop-filter: contrast(-100);
+            }
+
+            .shadow__btn {
+                background: rgb(0,0,255);
+                box-shadow: 15px 15px 5px rgb(0,0,0);
+            }
+            body{
+                background-image: url("https://cdn131.picsart.com/233812892065202.jpg");
+            }
+            .inputbox{
+                color: black;
+            }
+        </style>
+</head>
+<body>
+<form class="container" th:method="POST" th:action="@{/hospitals/{id}/update (id=${hospital.getId()})}"
+      th:object="${hospital}">
+    <br>
+    <div class="inputbox">
+        <span>Name<br></span>
+        <input required="required" type="text" th:field="*{name}">
+    </div>
+    <br>
+    <div class="inputbox">
+        <span>Address<br></span>
+        <input required="required" type="text" th:field="*{address}">
+    </div>
+    <br>
+    <br>
+    <button class="shadow__btn" type="submit">Update Hospital</button>
+</form>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</html>

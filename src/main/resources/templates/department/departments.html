@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Department Main Page</title>
+    <style>
+        body {
+            background: url("https://catherineasquithgallery.com/uploads/posts/2023-01/thumbs/1674279307_catherineasquithgallery-com-p-serii-fon-meditsina-foto-53.jpg");
+            display: compact;
+            backdrop-filter: blur(0.2lvi);
+            background-size: 1530px 1080px;
+            image-orientation: 360deg;
+            image-rendering: inherit;
+            background-blend-mode: darken;
+            background-origin: initial;
+            margin: 0;
+            align-content: center;
+            text-align: center;
+        }
+        .divClass{
+            padding: 10px 300px;
+        }
+
+        .tableClass {
+            margin: 20px 80px;
+            border: 1px;
+            border-collapse: collapse;
+            line-height: 1.1;
+            font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+            background: radial-gradient(farthest-corner at 50% 50%, white, #DCECF8);
+            color: #0C213B;
+            border-radius: 10px;
+            font-size: 20px;
+            width: 700px;
+        }
+        .h1Department{
+            font-family: annabelle, SansSerif;
+            font-weight: bold;
+            padding: 10px;
+            color: #F3CD26;
+            text-shadow: 1px 1px 0 rgba(0, 0, 0, .3);
+            font-size: 50px;
+            font-style: revert;
+            margin: 40px;
+            align-content: center;
+            text-align: center;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+          crossorigin="anonymous">
+</head>
+<body>
+<h1 class="h1Department">Department Main Page</h1>
+<div class="divClass">
+    <table class="tableClass" border="1" cellpadding="5">
+        <tr class="trClass">
+            <th>#ID</th>
+            <th>Name</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        <div th:each="department:${departments}">
+            <tr class="trdClass">
+                <td class="card-title" th:text="${department.getId()}">ID</td>
+                <td class="card-title" th:text="${department.getName()}">Name</td>
+                <td><a th:href="@{/departments/edit/{departmentId}(departmentId=${department.getId()})}">
+                    <button class="btn btn-outline-primary">Update</button>
+                </a>
+                </td>
+                <td><a >
+                    <form th:method="GET" th:action="@{/departments/{id}/{hosId}(id=${department.getId()},hosId=${hospitalId})}">
+                        <button class="btn btn-outline-primary">DELETE</button>
+                    </form>
+                </a>
+                </td>
+            </tr>
+        </div>
+    </table>
+</div>
+<br>
+<div style="text-align: center">
+    <a th:href="@{/departments/{id}/newDepartment(id=${hospitalId})}" target="_self">
+        <button style="font-size: 20px;" class="btn btn-outline-primary">Add new Department</button>
+    </a>
+</div>
+<br>
+<p style="text-align:center; font-size: 20px">
+    <a style="font-size: 20px" class="btn btn-outline-primary" role="button" th:href="@{/hospitals}">Back to Hospital</a>
+</p>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous">
+</script>
+</html>

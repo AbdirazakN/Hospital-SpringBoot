@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor Main Page</title>
+    <style>
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 100px;
+        }
+        body{
+            background: url("https://kartinkin.net/uploads/posts/2022-03/1647037157_1-kartinkin-net-p-kartinki-po-meditsine-1.jpg");
+            display: compact;
+            background-size: 1550px auto;
+            image-orientation: 360deg;
+            image-rendering: inherit;
+        }
+        body {
+            background: url("https://catherineasquithgallery.com/uploads/posts/2023-01/thumbs/1674279307_catherineasquithgallery-com-p-serii-fon-meditsina-foto-53.jpg");
+            display: compact;
+            backdrop-filter: blur(0.2lvi);
+            background-size: 1530px 1080px;
+            image-orientation: 360deg;
+            image-rendering: inherit;
+            background-blend-mode: darken;
+            background-origin: initial;
+            margin: 0;
+            align-content: center;
+            text-align: center;
+        }
+        .divClass{
+            padding: 10px 300px;
+        }
+
+        .tableClass {
+            margin: 20px 80px;
+            border: 1px;
+            border-collapse: collapse;
+            line-height: 1.1;
+            font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+            background: radial-gradient(farthest-corner at 50% 50%, white, #DCECF8);
+            color: #0C213B;
+            border-radius: 10px;
+            font-size: 20px;
+            width: 700px;
+        }
+        .h1Doctor{
+            font-family: annabelle, SansSerif;
+            font-weight: bold;
+            padding: 10px;
+            color: #F3CD26;
+            text-shadow: 1px 1px 0 rgba(0, 0, 0, .3);
+            font-size: 50px;
+            font-style: revert;
+            margin: 40px;
+            align-content: center;
+            text-align: center;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+          crossorigin="anonymous">
+</head>
+<body>
+<h1 class="h1Doctor">Doctor Main Page</h1>
+<div class="divClass">
+    <table class="tableClass" border="1" cellpadding="5">
+        <tr class="trClass">
+            <th>#ID</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Position</th>
+            <th>Email</th>
+            <th>Department</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        <div th:each="doctor:${doctors}">
+            <tr class="trdClass">
+                <td class="card-title" th:text="${doctor.getId()}">ID</td>
+                <td class="card-title" th:text="${doctor.getFirstName()}">Name</td>
+                <td class="card-title" th:text="${doctor.getLastName()}">Surname</td>
+                <td class="card-title" th:text="${doctor.getPosition()}">Position</td>
+                <td class="card-title" th:text="${doctor.getEmail()}">Email</td>
+                <td class="card-title">
+                    <form th:method="POST" th:action="@{/doctors/{doctorId}/assignDepartment(doctorId=${hospitalId})}">
+                    <select style="width: 90px" name="instructor" class="form-select form-select-sm" aria-label=".form-select-sm example" th:object="${department}" th:field="*{id}">
+                        <option th:each="department : ${departments}"
+                                th:value="${department.id}"
+                                th:text="${department.name}">check</option>
+                    </select>
+                    <input type="submit" name="text" class="btn btn-outline-primary" value="submit" placeholder="Type here" style="font-size: 15px;height: 30px;text-align: center;">
+                </form></td>
+                <td><a th:href="@{/doctors/edit/{doctorId}(doctorId=${doctor.getId()})}">
+                    <button class="btn btn-outline-primary">Update</button>
+                </a>
+                </td>
+                <td><a >
+                    <form th:method="get" th:action="@{/doctors/{id}delete/{hosId} (id=${doctor.getId()},hosId=${hospitalId})}">
+                        <button class="btn btn-outline-primary">Delete</button>
+                    </form>
+                </a>
+                </td>
+            </tr>
+        </div>
+    </table>
+</div>
+<div style="text-align: center">
+    <a th:href="@{/doctors/{id}/newDoctor(id=${hospitalId})}">
+        <button style="font-size: 20px;" class="btn btn-outline-primary">Add new Doctor</button>
+    </a>
+</div>
+<br>
+<div style="text-align: center">
+    <a th:href="@{/hospitals}">
+        <button class="btn btn-outline-primary" style="font-size: 20px;  margin: auto">Back to Hospital</button>
+    </a>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous">
+</script>
+</html>

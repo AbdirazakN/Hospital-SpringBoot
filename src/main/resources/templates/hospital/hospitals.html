@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hospital Main Page</title>
+    <style>
+        body {
+            /*backdrop-filter: blur(0.05svi);*/
+            background-image: url("https://celes.club/uploads/posts/2022-06/1654300724_2-celes-club-p-meditsinskie-oboi-krasivie-2.jpg");
+            background-image: url("https://cdn.vectorstock.com/i/preview-1x/42/54/doctor-and-hospital-themed-phone-background-vector-45264254.jpg");
+            background-image: url("https://sgmu.ru/upload/iblock/450/4z9xwth3fd0z8quax1n7e08glytwkemg.jpg");
+            background-image: url("https://registratura.med.kg/packs/media/images/signin/signin_background-d18f3ea08133f3919a795e1fbc33d6f6.jpg");
+            background-image: url("https://registratura.med.kg/packs/media/images/start_page/bg/bg-image-78ff5739605b05c3a384d8a0e1296954.jpg");
+            background-image: url("https://www.color-meanings.com/wp-content/uploads/dark-colors-abstract-drawing.png");
+            background-blend-mode: darken;
+            background-size: 1600px;
+            background-origin: initial;
+            margin: 0;
+        }
+
+        .container {
+            display: inherit;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+
+        .h1Hospital {
+            font-family: annabelle, SansSerif;
+            font-weight: bold;
+            padding: 10px;
+            color: #F3CD26;
+            text-shadow: 1px 1px 0 rgba(0, 0, 0, .3);
+            font-size: 50px;
+            font-style: revert;
+            margin: 40px;
+        }
+
+        .tableClass {
+            /*align-items: center;*/
+            /*alignment: center;*/
+            /*align-content: center;*/
+            /*text-align: center;*/
+            margin: 40px;
+            border: 1px;
+            border-collapse: collapse;
+            line-height: 1.1;
+            font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+            background: radial-gradient(farthest-corner at 50% 50%, white, #DCECF8);
+            color: #0C213B;
+            border-radius: 10px;
+
+        }
+
+        .trClass {
+            font-size: 15px;
+            border: 1px solid grey;
+        }
+
+        .trdClass {
+            font-size: 20px;
+            border: 1px solid grey;
+        }
+
+        th {
+            padding: 30px;
+            border: 1px solid #A9E2CC;
+        }
+
+        td {
+            font-size: 0.8em;
+            /*padding: 5px 7px;*/
+            border: 1px solid #A9E2CC;
+        }
+
+        .searchClass {
+            font-size: 20px;
+            font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+            font-weight: normal;
+            color: blue;
+            text-shadow: 1px 1px 0 rgba(0, 0, 0, .3);
+            font-style: revert;
+        }
+
+        .inputClass {
+            border-radius: 15px;
+            border: 3px black;
+        }
+        .logo{
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container" align="center">
+    <h1 class="h1Hospital">Hospital Manager</h1>
+  <form class="searchClass" th:method="get" th:action="@{/hospitals}" style="flex: content;display: initial">
+    <input class="inputClass" type="text" name="keyWord" th:value="${keyWord}" placeholder="  search"/>
+    <input class="inputClass" type="submit" value="Search"/>
+  </form>
+  <form th:action="@{/hospitals}" method="get" style="flex: content;display: initial">
+    <input class="inputClass" type="submit" value="Clear" style="font-size: 18px; padding: 2px 20px; margin: 0px 10px"/>
+  </form>
+    <br>
+    <br>
+            <h3><a href="https://registratura.med.kg/index">Online Medicine</a></h3>
+    <table class="tableClass" border="1" cellpadding="5">
+        <tr class="trClass">
+            <th>Logo</th>
+            <th>#ID</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Department</th>
+            <th>Doctor</th>
+            <th>Amount</th>
+            <th>Patient</th>
+            <th>Amount</th>
+            <th>Appointment</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        <div th:each="hospital:${hospitals}">
+            <tr class="trdClass">
+                <td><img src="#" alt="Logos" class="logo"></td>
+                <td th:text="${hospital.id}" style="text-align:center;">ID</td>
+                <td th:text="${hospital.name}">Name</td>
+                <td th:text="${hospital.address}">Address</td>
+                <td><a class="btn btn-outline-primary" role="button" th:href="@{/departments/{id}(id=${hospital.id})}">Department</a>
+                </td>
+                <td><a class="btn btn-outline-primary" role="button" th:href="@{/doctors/{id}(id=${hospital.id})}">Doctor</a>
+                </td>
+                <td th:text="${hospital.doctorCount}">Amount</td>
+                <td><a class="btn btn-outline-primary" role="button" th:href="@{/patients/{id}(id=${hospital.id})}">Patient</a>
+                </td>
+                <td th:text="${hospital.count}">Amount</td>
+                <td><a class="btn btn-outline-primary" role="button" th:href="@{/appointments/{id}(id=${hospital.id})}">Appointment</a>
+                </td>
+                <td><a th:href="@{/hospitals/edit/{id}(id=${hospital.getId()})}" th:target="_self">
+                    <button class="btn btn-outline-primary">Update</button>
+                </a></td>
+                <td><a>
+                    <form th:method="GET" th:action="@{/hospitals/{hospitalId}/delete(hospitalId=${hospital.getId()})}">
+                        <button class="btn btn-outline-primary">DELETE</button>
+                    </form>
+                </a></td>
+            </tr>
+        </div>
+    </table>
+</div>
+<p style="text-align: center;">
+    <a class="btn btn-outline-primary" role="button" href="/hospitals/new" th:target="_blank">Add new Hospital</a></p>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</html>
